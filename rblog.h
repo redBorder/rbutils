@@ -39,10 +39,8 @@
 #define LOG_DEBUG       7       /* debug-level messages */
 #endif
 
-// Return the current debug level of worker_info
 void rb_debug_set_debug_level(int level);
 
-// Set the output flag
 void rb_debug_set_output_flags(int flags);
 
 void rblog0(const char * file,const char *function,int line,const int level,char *fmt,...);
