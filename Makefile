@@ -5,9 +5,9 @@ LIBVER_FULL=$(LIBVER).0.0
 
 DESTDIR?=/opt/rb
 
-SRCS=	rblog.c
+SRCS=	rbstring.c
 
-HDRS=	rblog.h
+HDRS=	rbstring.h
 
 OBJS=	$(SRCS:.c=.o)
 DEPS=	${OBJS:%.o=%.d}
@@ -23,9 +23,9 @@ CFLAGS+=-g
 
 LDFLAGS+=-g
 
-.PHONY:
+.PHONY: libs test install clean
 
-all: libs
+all: libs test
 
 libs: $(LIBNAME).so.$(LIBVER) $(LIBNAME).a
 
@@ -50,5 +50,9 @@ install:
 
 clean:
 	rm -f $(OBJS) $(DEPS) $(LIBNAME).a $(LIBNAME).so $(LIBNAME).so.$(LIBVER)
+
+
+test:
+	make -C tests $@
 
 -include $(DEPS)
