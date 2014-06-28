@@ -39,7 +39,7 @@ static void test1(){
 	assertEqualStr(str,strbuffer_value(&strbuff));
 }
 
-static void test_append_escaped(){
+static void test_append_escaped1(){
 	strbuffer_t strbuff;
 	strbuffer_init(&strbuff);
 
@@ -51,11 +51,27 @@ static void test_append_escaped(){
 
 	assertNotEqualInt(0,strcmp(str,strbuffer_value(&strbuff)));
 	assertEqualStr(res_str,strbuffer_value(&strbuff));
+}
 
+static void test_append_escaped2(){
+	strbuffer_t strbuff;
+	strbuffer_init(&strbuff);
+
+	assertEqualInt(strlen(strbuffer_value(&strbuff)),0);
+
+	// str = Hello \"world\"
+	// res = Hello \\\"world\\\"
+	const char *str     = "Hello \\\"world\\\"!"; 
+	const char *res_str = "Hello \\\\\\\"world\\\\\\\"!";
+	strbuffer_append_escaped(&strbuff,str,"\"\\");
+
+	assertNotEqualInt(0,strcmp(str,strbuffer_value(&strbuff)));
+	assertEqualStr(res_str,strbuffer_value(&strbuff));
 }
 
 int main(void){
 	test1();
-	test_append_escaped();
+	test_append_escaped1();
+	test_append_escaped2();
 	return 0;
 }
