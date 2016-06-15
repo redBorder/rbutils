@@ -55,4 +55,7 @@ clean:
 test:
 	make -C tests $@
 
+rpm: 
+	$(MAKE) -C packaging/rpm
+
 -include $(DEPS)
